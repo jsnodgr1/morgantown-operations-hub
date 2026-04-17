@@ -1,0 +1,26 @@
+# Starter source registry for workbook inputs.
+# Replace example paths and sheet names with real values as sources are confirmed.
+
+sources:
+  - source_id: daily_schedule
+    source_name: Daily Production Schedule
+    source_type: excel_workbook
+    path: C:/path/to/daily_schedule.xlsx
+    sheet_names:
+      - Schedule
+    enabled: true
+    owner: Operations Planning
+    refresh_expectation: daily_by_06_00
+    timestamp_strategy: workbook_modified_time
+
+  - source_id: shift_handoff
+    source_name: Shift Handoff Log
+    source_type: excel_workbook
+    path: C:/path/to/shift_handoff.xlsm
+    sheet_names:
+      - Summary
+      - Issues
+    enabled: false
+    owner: Shift Supervisor
+    refresh_expectation: each_shift
+    timestamp_strategy: cell_value

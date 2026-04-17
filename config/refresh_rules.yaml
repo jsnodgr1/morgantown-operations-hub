@@ -1,0 +1,13 @@
+# Freshness rules are examples only.
+# Thresholds should be updated to match real operational expectations.
+
+rules:
+  - source_id: daily_schedule
+    metric: source_age_minutes
+    warning_threshold: 240
+    error_threshold: 480
+
+  - source_id: shift_handoff
+    metric: source_age_minutes
+    warning_threshold: 90
+    error_threshold: 180

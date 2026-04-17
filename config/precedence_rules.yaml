@@ -1,0 +1,29 @@
+# Precedence rules define which source wins when multiple values compete.
+# These are starter examples and not final business-approved rules.
+
+precedence:
+  current_product:
+    preferred_sources:
+      - shift_handoff
+      - operator_board
+      - daily_schedule
+
+  daily_target:
+    preferred_sources:
+      - daily_schedule
+      - monthly_plan
+
+  monthly_plan:
+    preferred_sources:
+      - monthly_plan
+      - annual_plan
+
+  annual_plan:
+    preferred_sources:
+      - annual_plan
+
+  issue_state:
+    preferred_sources:
+      - shift_handoff
+      - maintenance_log
+      - daily_schedule

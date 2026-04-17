@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "morgantown-operations-hub"
+version = "0.1.0"
+description = "Windows-friendly data consolidation scaffold for Morgantown manufacturing operations."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Proprietary" }
+authors = [
+  { name = "Morgantown Operations Hub Team" }
+]
+dependencies = [
+  "pandas",
+  "openpyxl",
+  "pydantic",
+  "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+morgantown-ops-hub = "morgantown_ops_hub.main:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
