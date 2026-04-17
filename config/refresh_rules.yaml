@@ -1,13 +1,18 @@
-# Freshness rules are examples only.
-# Thresholds should be updated to match real operational expectations.
+# Freshness rules are starter values only.
+# Thresholds should be updated to match confirmed operational expectations.
 
 rules:
-  - source_id: daily_schedule
+  - source_id: liquids_schedule
+    metric: source_age_minutes
+    warning_threshold: 720
+    error_threshold: 1440
+
+  - source_id: shipping_execution_log
     metric: source_age_minutes
     warning_threshold: 240
     error_threshold: 480
 
-  - source_id: shift_handoff
+  - source_id: north_plant_shift_instructions
     metric: source_age_minutes
-    warning_threshold: 90
-    error_threshold: 180
+    warning_threshold: 180
+    error_threshold: 360

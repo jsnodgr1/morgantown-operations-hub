@@ -65,10 +65,16 @@ python -m pip install -e .
 
 ## Run Instructions
 
-Run the current scaffold entry point:
+Validate the current config bundle:
 
 ```powershell
-python -m morgantown_ops_hub.main
+python -m morgantown_ops_hub.main --config-dir config
+```
+
+Run a local dry source-resolution pass against the sanitized sample fixture and write an artifact to `output/source_resolution_dry_run.json`:
+
+```powershell
+python -m morgantown_ops_hub.main --config-dir config --dry-run-resolution --candidate-fixture samples/source_candidates_fixture.json --output-dir output
 ```
 
 Run tests:

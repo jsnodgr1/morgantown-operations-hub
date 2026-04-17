@@ -1,0 +1,111 @@
+{
+  "candidates": [
+    {
+      "source_id": "liquids_schedule",
+      "candidate_name": "Master North Plant Liquids Schedule.xlsm",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Master North Plant Liquids Schedule.xlsm",
+      "source_type": "sharepoint_workbook",
+      "modified_at": "2026-04-17T09:15:00-04:00",
+      "business_timestamp": "2026-04-17T08:00:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "liquids_schedule",
+      "candidate_name": "Master North Plant Liquids Schedule Archive.xlsm",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Archive/Master North Plant Liquids Schedule Archive.xlsm",
+      "source_type": "sharepoint_workbook",
+      "modified_at": "2026-04-16T09:15:00-04:00",
+      "business_timestamp": "2026-04-16T08:00:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Archive",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "liquids_schedule",
+      "candidate_name": "Master South Plant Liquids Schedule.xlsm",
+      "candidate_path": "Morgantown/Operations/South Plant/Master South Plant Liquids Schedule.xlsm",
+      "source_type": "sharepoint_workbook",
+      "modified_at": "2026-04-17T09:10:00-04:00",
+      "business_timestamp": "2026-04-17T08:00:00-04:00",
+      "folder_path": "Morgantown/Operations/South Plant",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "solids_schedule",
+      "candidate_name": "Master Solids Schedule.xlsx",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Master Solids Schedule.xlsx",
+      "source_type": "sharepoint_workbook",
+      "modified_at": "2026-04-17T09:00:00-04:00",
+      "business_timestamp": "2026-04-17T07:30:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)",
+      "extension": ".xlsx"
+    },
+    {
+      "source_id": "solids_schedule",
+      "candidate_name": "Master Solids Schedule.xlsm",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Master Solids Schedule.xlsm",
+      "source_type": "sharepoint_workbook",
+      "modified_at": "2026-04-17T09:00:00-04:00",
+      "business_timestamp": "2026-04-17T07:30:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "shipping_dated_schedules",
+      "candidate_name": "20260415 Schedule.xlsm",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule/20260415 Schedule.xlsm",
+      "source_type": "sharepoint_folder",
+      "modified_at": "2026-04-15T06:30:00-04:00",
+      "business_timestamp": "2026-04-15T06:00:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "shipping_dated_schedules",
+      "candidate_name": "20260416 Schedule.xlsm",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule/20260416 Schedule.xlsm",
+      "source_type": "sharepoint_folder",
+      "modified_at": "2026-04-16T06:30:00-04:00",
+      "business_timestamp": "2026-04-16T06:00:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "shipping_dated_schedules",
+      "candidate_name": "20260417 Schedule.xlsm",
+      "candidate_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule/20260417 Schedule.xlsm",
+      "source_type": "sharepoint_folder",
+      "modified_at": "2026-04-17T06:30:00-04:00",
+      "business_timestamp": "2026-04-17T06:00:00-04:00",
+      "folder_path": "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule",
+      "extension": ".xlsm"
+    },
+    {
+      "source_id": "north_plant_shift_instructions",
+      "candidate_name": "North Plant Shift Instructions - 2026-04-16 AM",
+      "candidate_path": "mailbox/Operations/2026-04-16-0700.eml",
+      "source_type": "email",
+      "received_at": "2026-04-16T07:00:00-04:00",
+      "folder_path": "mailbox/Operations",
+      "subject": "North Plant Shift Instructions"
+    },
+    {
+      "source_id": "north_plant_shift_instructions",
+      "candidate_name": "North Plant Shift Instructions - 2026-04-17 AM",
+      "candidate_path": "mailbox/Operations/2026-04-17-0700.eml",
+      "source_type": "email",
+      "received_at": "2026-04-17T07:00:00-04:00",
+      "folder_path": "mailbox/Operations",
+      "subject": "North Plant Shift Instructions"
+    },
+    {
+      "source_id": "north_plant_shift_instructions",
+      "candidate_name": "North Plant Shift Instructions - 2026-04-17 PM",
+      "candidate_path": "mailbox/Operations/2026-04-17-1900.eml",
+      "source_type": "email",
+      "received_at": "2026-04-17T19:00:00-04:00",
+      "folder_path": "mailbox/Operations",
+      "subject": "North Plant Shift Instructions"
+    }
+  ]
+}

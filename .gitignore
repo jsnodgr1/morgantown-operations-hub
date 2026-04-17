@@ -30,6 +30,7 @@ Thumbs.db
 
 # Generated outputs
 output/*.csv
+output/*.json
 output/*.xlsx
 output/*.xlsm
 
