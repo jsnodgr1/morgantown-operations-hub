@@ -1,26 +1,198 @@
-# Starter source registry for workbook inputs.
-# Replace example paths and sheet names with real values as sources are confirmed.
+# Approved V1 source manifest derived from Sources.json.
+# V1 source scope is North Plant-focused within the Morgantown site.
+# SharePoint modified time can help select candidate files, but it is not by itself proof of business freshness.
+
+site: Morgantown
+plant_scope: North Plant
 
 sources:
-  - source_id: daily_schedule
-    source_name: Daily Production Schedule
-    source_type: excel_workbook
-    path: C:/path/to/daily_schedule.xlsx
-    sheet_names:
-      - Schedule
+  - source_id: liquids_schedule
+    source_name: Master North Plant Liquids Schedule
+    source_type: sharepoint_workbook
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: planned_schedule
+    path: "Morgantown/Operations/Schedules (Weekly-Daily)/Master North Plant Liquids Schedule.xlsm"
+    selection_rules:
+      latest_only: true
+      exclude_name_contains:
+        - Archive
+      scope: North Plant
     enabled: true
-    owner: Operations Planning
-    refresh_expectation: daily_by_06_00
-    timestamp_strategy: workbook_modified_time
+    authoritative_for:
+      - planned_schedule
+      - north_plant_liquids_schedule
+    notes: >
+      Approved V1 North Plant liquids planning source. Use the latest eligible file for selection,
+      but confirm business freshness from workbook content or downstream freshness rules.
+    expected_refresh: TODO_confirm_schedule_refresh_cadence
+    timestamp_strategy: TODO_confirm_business_timestamp_field_or_tab
 
-  - source_id: shift_handoff
-    source_name: Shift Handoff Log
-    source_type: excel_workbook
-    path: C:/path/to/shift_handoff.xlsm
-    sheet_names:
-      - Summary
-      - Issues
-    enabled: false
-    owner: Shift Supervisor
-    refresh_expectation: each_shift
-    timestamp_strategy: cell_value
+  - source_id: blends_schedule
+    source_name: Blends Schedule
+    source_type: sharepoint_workbook
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: planned_schedule
+    path: "Morgantown/Operations/Schedules (Weekly-Daily)/Blends Schedule.xlsm"
+    selection_rules:
+      latest_only: true
+    enabled: true
+    authoritative_for:
+      - planned_schedule
+      - blends_schedule
+    notes: >
+      Approved V1 blends planning source. Manifest specifies latest-only selection but does not
+      yet define tabs, business timestamps, or refresh thresholds.
+    expected_refresh: TODO_confirm_schedule_refresh_cadence
+    timestamp_strategy: TODO_confirm_business_timestamp_field_or_tab
+
+  - source_id: solids_schedule
+    source_name: Master Solids Schedule
+    source_type: sharepoint_workbook
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: planned_schedule
+    path: "Morgantown/Operations/Schedules (Weekly-Daily)/Master Solids Schedule.xlsm"
+    selection_rules:
+      latest_only: true
+      prefer_extension: ".xlsm"
+    enabled: true
+    authoritative_for:
+      - planned_schedule
+      - solids_schedule
+    notes: >
+      Approved V1 solids planning source. Manifest prefers the macro-enabled workbook when multiple
+      variants exist.
+    expected_refresh: TODO_confirm_schedule_refresh_cadence
+    timestamp_strategy: TODO_confirm_business_timestamp_field_or_tab
+
+  - source_id: shipping_execution_log
+    source_name: SHIPPING SCHEDULE execution log
+    source_type: sharepoint_workbook
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: shipping_execution
+    path: "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule/SHIPPING SCHEDULE.xlsm"
+    selection_rules:
+      latest_only: true
+      exclude_folders:
+        - Archive
+    enabled: true
+    authoritative_for:
+      - shipping_execution
+    notes: >
+      Approved V1 shipping execution workbook from the shipping schedules folder. Final same-day
+      authority versus dated schedules still needs business confirmation.
+    expected_refresh: TODO_confirm_shipping_execution_refresh_cadence
+    timestamp_strategy: TODO_confirm_business_timestamp_field_or_tab
+
+  - source_id: shipping_dated_schedules
+    source_name: Shipping dated schedules
+    source_type: sharepoint_folder
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: shipping_plan
+    path: "Morgantown/Operations/Schedules (Weekly-Daily)/Shipping Schedule"
+    selection_rules:
+      filename_pattern: "\\d{8} Schedule.xlsm"
+      latest_n: 2
+      exclude_folders:
+        - Archive
+    enabled: true
+    authoritative_for:
+      - shipping_plan
+    notes: >
+      Approved V1 shipping plan source group. Include only the latest two dated schedule files
+      that match the manifest pattern.
+    expected_refresh: TODO_confirm_shipping_plan_refresh_cadence
+    timestamp_strategy: TODO_confirm_business_timestamp_field_or_tab
+
+  - source_id: daily_manufacturing_review
+    source_name: Daily Manufacturing Review
+    source_type: sharepoint_workbook
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: daily_summary_or_kpis
+    path: "Morgantown/Operations/Manufacturing Review/Daily Manufacturing Review.xlsx"
+    selection_rules:
+      latest_only: true
+    enabled: true
+    authoritative_for:
+      - daily_summary_or_kpis
+    notes: >
+      Approved V1 daily review workbook. Treat as a summary-oriented source, not a universal winner
+      over execution-specific sources.
+    expected_refresh: daily
+    timestamp_strategy: TODO_confirm_review_date_field_or_tab
+
+  - source_id: north_plant_shift_instructions
+    source_name: North Plant Shift Instructions
+    source_type: email
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: current_execution_state
+    mailbox_scope: Operations
+    subject_patterns:
+      - "North Plant Shift Instructions"
+    selection_rules:
+      latest_per_day: true
+    enabled: true
+    authoritative_for:
+      - current_execution_state
+    notes: >
+      Approved V1 email source for North Plant execution state. Domain-specific precedence applies;
+      do not treat it as a universal winner outside its intended scope.
+    expected_refresh: daily
+    timestamp_strategy: email_received_time
+
+  - source_id: blends_shift_instructions
+    source_name: Blends Shift Instructions
+    source_type: email
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: blends_execution_state
+    mailbox_scope: Blends Operations
+    subject_patterns:
+      - "Blends Shift Instructions"
+    selection_rules:
+      latest_per_day: true
+    enabled: true
+    authoritative_for:
+      - blends_execution_state
+    notes: >
+      Approved V1 email source for blends execution state. Use the latest message per day matching
+      the configured subject pattern.
+    expected_refresh: daily
+    timestamp_strategy: email_received_time
+
+  - source_id: k9_195_evening_news
+    source_name: K9/195 Evening News
+    source_type: email
+    site_scope: Morgantown
+    plant_scope: North Plant
+    domain: solids_execution_state
+    mailbox_scope: "K9 / Solids Operations"
+    subject_patterns:
+      - "K9/195 Evening News"
+    selection_rules:
+      latest_per_day: true
+      highest_precedence_for_solids: true
+    enabled: true
+    authoritative_for:
+      - solids_execution_state
+    notes: >
+      Approved V1 solids execution email source. The manifest explicitly gives this source highest
+      first-pass precedence for solids execution state.
+    expected_refresh: daily
+    timestamp_strategy: email_received_time
+
+exclusions:
+  sharepoint_paths:
+    - "Morgantown/Operations/South Plant"
+  filename_contains:
+    - "South Plant"
+    - "Archive"
+  notes:
+    - "Exclude South Plant content from the approved V1 North Plant source scope."
+    - "Exclude archived content unless a future rule explicitly re-admits it."

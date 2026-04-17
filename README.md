@@ -1,51 +1,55 @@
 # Morgantown Operations Hub
 
-`morgantown-operations-hub` is a Windows-friendly Python application scaffold for consolidating volatile workbook-based operational data into a single daily view of manufacturing state for the Morgantown facility.
+`morgantown-operations-hub` is a Windows-friendly Python application for consolidating volatile workbook-based operational data into one validated daily operating snapshot for the Morgantown facility.
 
-The hub is intended to ingest multiple Excel sources, normalize inconsistent labels and units, reconcile schedule-versus-actual production signals, and emit a consolidated operating snapshot with traceable issues and freshness context.
+The current repo is intentionally narrow. V1 is a local pipeline that reads a small set of configured workbook sources, normalizes them into a canonical model, reconciles schedule-versus-actual state, and assembles a traceable snapshot with QA findings and source freshness context. The approved V1 source set is North Plant-focused within the Morgantown site.
 
 ## Questions The Hub Should Answer
 
-- What is the facility producing right now, by area and product?
-- What was scheduled for today versus what appears to have actually run?
-- Which sources disagree, and which source currently wins for each business field?
-- Are any critical source files stale or missing?
-- Which assumptions, crosswalks, and reconciliation rules materially affected the final snapshot?
+- What is the facility producing now, by area and product?
+- What was planned for the day versus what the current actuals-oriented sources indicate?
+- Which sources are stale, missing, or in conflict?
+- Which source won for a given field, and why?
+- Which explicit mappings, precedence decisions, and validation checks affected the snapshot?
 
-## Initial Architecture Overview
+## V1 Architecture
 
-The first version is designed as a local Python pipeline with explicit stages:
+V1 follows six practical stages that map directly to the current package structure:
 
-1. `extract`: discover configured sources and load workbook data.
-2. `normalize`: standardize column names, labels, and units into canonical forms.
-3. `reconcile`: compare planned and actual production state using explicit precedence and freshness rules.
-4. `snapshot`: assemble a validated point-in-time state object for downstream reporting.
-5. `qa`: surface issues, stale inputs, and rule-driven warnings before outputs are trusted.
+1. `source inventory`: document candidate workbook sources, owners, refresh expectations, and likely authority.
+2. `extract`: load configured workbook files and target sheets.
+3. `normalize`: standardize source-specific headers, labels, and units into canonical forms.
+4. `reconcile`: compare planned and actual production state using explicit precedence and freshness rules.
+5. `snapshot`: assemble a point-in-time canonical `StateSnapshot`.
+6. `qa/validation`: flag stale inputs, missing values, and unresolved conflicts before the snapshot is trusted.
 
-Configuration and business logic are intentionally separated:
+The repo keeps these concerns separate on purpose:
 
-- `config/` stores source definitions, refresh expectations, and precedence hints.
-- `mappings/` stores controlled crosswalk tables for areas, products, and units.
-- `docs/` captures scope, schema, and business rule decisions that should be reflected in code.
+- `docs/` records scope, canonical concepts, and unresolved rule decisions.
+- `config/` records executable source definitions and starter rules.
+- `mappings/` records crosswalk data used during normalization.
+- `src/morgantown_ops_hub/` contains the implementation scaffold for the pipeline stages above.
 
 ## Current V1 Scope
 
-V1 is focused on producing one validated daily operating snapshot from a small set of core workbook sources on a local Windows workstation.
+V1 is limited to producing one validated daily operating snapshot from a small set of local workbook sources on a Windows workstation.
 
-Included in this initial scaffold:
+In scope:
 
-- project structure for source, config, mappings, docs, samples, tests, and outputs
-- starter typed models and logging utilities
-- module boundaries for extract, normalize, reconcile, snapshot, QA, and Excel IO
-- baseline config and documentation templates
+- explicit source inventory and source configuration
+- workbook extraction for a limited set of tabs and fields
+- canonical normalization of areas, products, and units
+- schedule-versus-actual reconciliation
+- snapshot assembly with source freshness and issue tracking
+- targeted tests around normalization, reconciliation, and snapshot creation
 
 ## Non-Goals For V1
 
 - no web UI, API, or background service
-- no database or cloud deployment layer
-- no attempt to automate every workbook variation up front
-- no silent business logic embedded in spreadsheets without corresponding code or config rules
-- no writeback into source workbooks
+- no database or long-term history layer
+- no writeback into source workbooks or external systems
+- no attempt to generalize every workbook pattern up front
+- no implicit business rules hidden only in spreadsheets
 
 ## Local Setup
 
@@ -82,16 +86,24 @@ python -m pytest
 
 ## Traceability, Timestamps, And Source Freshness
 
-Every consolidated snapshot should eventually preserve:
+Every published snapshot should preserve or derive, when possible:
 
-- the exact source file and sheet used
+- the source file path and source identifier
+- the workbook sheet or tab used
 - the extraction timestamp
 - the business timestamp taken from the source, when available
 - the freshness evaluation applied to that source
 - the rule or precedence decision used when conflicting values exist
 
-This project should treat timestamps as first-class data, not incidental metadata. A snapshot is only useful if its recency and provenance are obvious.
+Timestamps are part of the business meaning of the snapshot, not just system metadata. A daily snapshot is not trustworthy if the recency and provenance of its inputs are unclear.
+
+## Documentation Map
+
+- `docs/v1-scope.md`: what V1 is and is not trying to do
+- `docs/source-inventory.md`: source-by-source inventory used to drive `config/sources.yaml`
+- `docs/business-rules.md`: explicit rule decisions and TODOs for precedence, freshness, reconciliation, and issue handling
+- `docs/canonical-schema.md`: canonical entities used by normalization, reconciliation, and snapshot assembly
 
 ## Reliability Notes
 
-Workbook logic should not be trusted blindly. Spreadsheet formulas, hidden tabs, cached values, and manual edits can drift over time. All normalization, precedence, reconciliation, and issue-severity rules should be made explicit in code and configuration so that the operating snapshot is explainable and reviewable.
+Workbook logic should not be trusted blindly. Hidden tabs, cached formula values, manual edits, and naming drift can all change behavior without changing intent. Normalization rules, precedence rules, and QA criteria should therefore be explicit in code or config so the resulting snapshot stays explainable and reviewable.

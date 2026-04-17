@@ -1,29 +1,64 @@
-# Precedence rules define which source wins when multiple values compete.
-# These are starter examples and not final business-approved rules.
+# Approved first-pass precedence derived from Sources.json.
+# Precedence is domain-specific and should not be treated as one universal ranking across all fields.
 
 precedence:
-  current_product:
+  current_execution_state:
     preferred_sources:
-      - shift_handoff
-      - operator_board
-      - daily_schedule
+      - north_plant_shift_instructions
+      - liquids_schedule
+      - daily_manufacturing_review
+    notes:
+      - "Derived from the approved manifest ordering for North Plant execution context."
+      - "TODO: Confirm whether any shipping or area-specific source should participate for non-liquids execution state."
 
-  daily_target:
+  solids_execution_state:
     preferred_sources:
-      - daily_schedule
-      - monthly_plan
+      - k9_195_evening_news
+      - solids_schedule
+      - north_plant_shift_instructions
+      - daily_manufacturing_review
+    notes:
+      - "The manifest explicitly gives k9_195_evening_news highest first-pass precedence for solids."
+      - "TODO: Confirm whether Daily Manufacturing Review is supporting-only for same-day solids execution conflicts."
 
-  monthly_plan:
+  blends_execution_state:
     preferred_sources:
-      - monthly_plan
-      - annual_plan
+      - blends_shift_instructions
+      - blends_schedule
+      - north_plant_shift_instructions
+      - daily_manufacturing_review
+    notes:
+      - "Uses the manifest ordering, narrowed to the blends domain."
+      - "TODO: Confirm whether North Plant Shift Instructions should ever outrank the blends-specific email stream."
 
-  annual_plan:
+  planned_schedule:
     preferred_sources:
-      - annual_plan
+      - solids_schedule
+      - blends_schedule
+      - liquids_schedule
+    notes:
+      - "This group represents schedule sources only; use domain-specific source selection by operating area."
+      - "Do not treat solids_schedule as a universal winner over blends_schedule or liquids_schedule outside the relevant area."
 
-  issue_state:
+  shipping_execution:
     preferred_sources:
-      - shift_handoff
-      - maintenance_log
-      - daily_schedule
+      - shipping_execution_log
+      - daily_manufacturing_review
+    notes:
+      - "The manifest approves the shipping execution workbook and Daily Manufacturing Review, but does not fully define field-level tie-breakers."
+      - "TODO: Confirm whether shipping execution log is authoritative for all same-day shipment-state conflicts."
+
+  shipping_plan:
+    preferred_sources:
+      - shipping_dated_schedules
+      - shipping_execution_log
+    notes:
+      - "Use the latest two dated shipping schedules as the first-pass planned shipping source group."
+      - "TODO: Confirm whether the execution log should remain supporting-only for planned shipping commitments."
+
+  daily_summary_or_kpis:
+    preferred_sources:
+      - daily_manufacturing_review
+    notes:
+      - "Daily Manufacturing Review is the approved summary-oriented source in the V1 manifest."
+      - "TODO: Confirm which fields from this source are treated as derivative context versus authoritative summary values."
