@@ -37,7 +37,7 @@ This document defines scope for that pipeline. It does not define presentation l
 
 ## Initial Source Candidates
 
-The approved V1 source manifest is North Plant-focused within Morgantown and should be documented in `docs/source-inventory.md` and encoded in `config/sources.yaml`.
+The approved V1 source manifest represents the current active Morgantown operating scope and should be documented in `docs/source-inventory.md` and encoded in `config/sources.yaml`. In practice, that active scope currently aligns with sources still labeled `North Plant`.
 
 Approved V1 source groups:
 

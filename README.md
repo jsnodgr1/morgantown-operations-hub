@@ -2,7 +2,7 @@
 
 `morgantown-operations-hub` is a Windows-friendly Python application for consolidating volatile workbook-based operational data into one validated daily operating snapshot for the Morgantown facility.
 
-The current repo is intentionally narrow. V1 is a local pipeline that reads a small set of configured workbook sources, normalizes them into a canonical model, reconciles schedule-versus-actual state, and assembles a traceable snapshot with QA findings and source freshness context. The approved V1 source set is North Plant-focused within the Morgantown site.
+The current repo is intentionally narrow. V1 is a local pipeline that reads a small set of configured workbook sources, normalizes them into a canonical model, reconciles schedule-versus-actual state, and assembles a traceable snapshot with QA findings and source freshness context. The site scope is Morgantown, and the current active operating scope corresponds to the former North Plant footprint. South Plant content is excluded because it is mothballed legacy scope. `North Plant` still appears in source names where that remains the operational label.
 
 ## Questions The Hub Should Answer
 

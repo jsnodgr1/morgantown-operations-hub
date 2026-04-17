@@ -2,7 +2,7 @@
 
 This document is the human-readable V1 source inventory for the approved Morgantown Operations Hub source manifest.
 
-V1 source scope is explicitly North Plant-focused within Morgantown. South Plant content and archived content are excluded unless a later approved change says otherwise.
+This inventory represents the active Morgantown operating scope. That active scope currently corresponds to the former North Plant footprint. South Plant content is excluded because it is mothballed legacy scope, not because the hub is intended to cover only a partial slice of Morgantown. `North Plant` still appears in source names, subject lines, and workbook titles where that remains the operational labeling.
 
 Latest modified timestamp is useful for file selection, but it is not by itself proof of business freshness. Freshness still needs source-aware validation.
 
@@ -147,8 +147,8 @@ Precedence is domain-specific. Do not treat any one source as a globally univers
 
 ## Explicit Exclusions
 
-- Exclude SharePoint path `Morgantown/Operations/South Plant`
-- Exclude filenames containing `South Plant`
+- Exclude SharePoint path `Morgantown/Operations/South Plant` because South Plant is inactive legacy scope
+- Exclude filenames containing `South Plant` because they refer to inactive legacy scope
 - Exclude filenames or folders containing `Archive`
 
 ## Notes For Config Preparation

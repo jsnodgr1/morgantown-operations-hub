@@ -1,5 +1,7 @@
 # Approved V1 source manifest derived from Sources.json.
-# V1 source scope is North Plant-focused within the Morgantown site.
+# Site scope is Morgantown.
+# `plant_scope: North Plant` reflects the current source-label and operating-label convention,
+# and presently corresponds to the full active Morgantown operating scope.
 # SharePoint modified time can help select candidate files, but it is not by itself proof of business freshness.
 
 site: Morgantown
@@ -194,5 +196,5 @@ exclusions:
     - "South Plant"
     - "Archive"
   notes:
-    - "Exclude South Plant content from the approved V1 North Plant source scope."
+    - "Exclude South Plant content because it is mothballed legacy scope outside the current active Morgantown operating scope."
     - "Exclude archived content unless a future rule explicitly re-admits it."
